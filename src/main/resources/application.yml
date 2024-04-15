@@ -1,0 +1,36 @@
+server:
+  port: 9003
+
+spring:
+  application:
+    name: dispatcher-service
+  config:
+    import: "optional:configserver:" # 스프링 클라우드 컨피그 서버에서 설정을 가져온다
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: user
+    password: password
+    connection-timeout: 5s
+  cloud:
+    config:
+      uri: http://localhost:8888
+      request-connect-timeout: 30000
+      request-read-timeout: 5000
+      fail-fast: false
+      retry:
+        max-attempts: 6
+        initial-interval: 1000
+        max-interval: 2000
+        multiplier: 1.1
+    function:
+      definition: pack|label # 스프링 클라우드 함수가 관리할 함수 정의, 파이프 연산자를 사용해 함수를 데이터 흐름 내에서 합성할 수 있다.
+    stream:
+      bindings:
+        packlabel-in-0:
+          destination: order-accepted
+          group: ${spring.application.name} # 대상에 관심을 갖는 소비자 그룹
+        packlabel-out-0:
+          destination: order-dispatched
+
+
