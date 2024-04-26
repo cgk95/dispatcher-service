@@ -37,8 +37,7 @@ public class FunctionsStreamIntegrationsTests {
                 .build();
 
         this.input.send(inputMessage); // 입력 채널로 메시지를 보낸다
-        assertThat(objectMapper.readValue(output.receive().getPayload(),
-                OrderDispatchedMessage.class))
+        assertThat(objectMapper.readValue(output.receive().getPayload(), OrderDispatchedMessage.class))
                 .isEqualTo(outputMessage.getPayload()); // 출력 채널에서 메시지를 받아서 확인
     }
 }
