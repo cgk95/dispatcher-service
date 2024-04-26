@@ -3,7 +3,7 @@ on: push
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: polarbookshop/dispatcher-service
+  IMAGE_NAME: cgk95/dispatcher-service
   VERSION: latest
 
 jobs:
